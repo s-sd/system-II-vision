@@ -208,7 +208,7 @@ for i in range(num_iterations):
 # plt.imshow(y_val_batch[index])
 # plt.imshow(y_val_batch_predicted[index])
 
-# plt.imshow(y_val_batch_predicted[index]>0.942)
+# plt.imshow(y_val_batch_predicted[index]>0.501)
 
 # maybe stopped early at 0.9 discrimination
 # approx 6 epochs
@@ -229,7 +229,7 @@ x_test_batch, y_test_batch = get_data_batch(test_dataset, batch_size=num_samples
 
 # adapt the two networks using 8 samples
 
-num_iterations_adaptation = 16
+num_iterations_adaptation = 16 # increase if required
 
 for _ in range(num_iterations_adaptation):
     
@@ -250,7 +250,9 @@ for _ in range(num_iterations_adaptation):
     generator_loss = gan.train_on_batch(x_test_batch, misleading_labels)
 
 
-# generator.predict(x_test_batch[0:1])
+# predicted_segmentation = generator.predict(x_test_batch[0:1])
+# plt.imshow(predicted_segmentation[0])
+# plt.imshow(predicted_segmentation[0]>0.504) # select a threshold, not required if training every step to convergence, just required for demo
 
 # =============================================================================
 # Per-sample type 2 thinking using self-play RL environment
@@ -271,12 +273,12 @@ class Type2Thinking(gym.Env):
         self.discriminator = discriminator
         
         self.observation_space = gym.spaces.Box(low=0, high=1, shape=(*np.shape(self.sample), 2))
-        self.action_space = gym.spaces.MultiBinary(np.shape(self.sample))
+        self.action_space = gym.spaces.Box(low=0, high=1, shape=np.shape(self.sample))
         
         self.predicted_segmentation = None
-        self.threshold = 0.5045 # this might need to be adjusted for teh demo, however, for full training of gan, we can leave it at 0.5
+        self.threshold = 0.504 # this might need to be adjusted for teh demo, however, for full training of gan, we can leave it at 0.5
         
-        self.proportion_flips_allowed = 0.05
+        self.proportion_flips_allowed = 0.01
         
         self.competitor_observations = []
         self.competitor_actions = []
@@ -306,9 +308,16 @@ class Type2Thinking(gym.Env):
         predicted_segmentation_out = self._logical_operation(action, predicted_segmentation)
         return predicted_segmentation_out
     
+    def _round_top_proportion(self, array, proportion):
+        percentage = proportion * 100    
+        threshold = np.percentile(array, 100 - percentage) # Calculate the threshold value for the top n% of elements
+        rounded_arr = np.where(array >= threshold, 1, 0) # Round elements greater than or equal to the threshold to 1, and the rest to 0
+        return rounded_arr
+    
     def step(self, action):
         
         action = np.reshape(action, env.action_space.shape)
+        action = self._round_top_proportion(action, proportion=self.proportion_flips_allowed)
         
         previous_observation = self._get_observation(self.sample, self.predicted_segmentation)
         
@@ -324,20 +333,13 @@ class Type2Thinking(gym.Env):
         
         reward = agent_discrimination - competitor_discrimination
         
-        # pick the better segmentation but only apply action if lots are not changed
+        # pick the better segmentation
         # for more complex problems set self.proportion_flips_alowed to 0.01
         if reward < 0:
-            if np.sum(competitor_action) <  self.proportion_flips_allowed*np.prod(self.action_space.shape):
-                self.predicted_segmentation = competitor_segmentation
-                self.competitor_rewards.append(reward * -1)
-            else:
-                self.competitor_rewards.append((reward * -1) -10)
-        
+            self.predicted_segmentation = competitor_segmentation
+            self.competitor_rewards.append(reward * -1)        
         else:
-            if np.sum(action) <  self.proportion_flips_allowed*np.prod(self.action_space.shape):
-                self.predicted_segmentation = agent_segmentation
-            else:
-                reward -= 10
+            self.predicted_segmentation = agent_segmentation
             
         observation = self._get_observation(self.sample, self.predicted_segmentation)
         
@@ -383,19 +385,26 @@ class dummy_func():
 
 env.competitor = dummy_func
 
-# obs_2, rew, don, _ = env.step(np.ones(env.action_space.shape))
+
+
+
+observation = env.reset()
+
+obs_2, rew, don, _ = env.step(env.action_space.sample())
+
+plt.imshow(obs_2[:, :, 1])
 
 # =============================================================================
 # RL self-play training
 # =============================================================================
 
-class FlattenedActions(gym.ActionWrapper):
-    def __init__(self, env):
-        super().__init__(env)
-        self.action_space = gym.spaces.MultiBinary(np.prod(env.action_space.shape))
+# class FlattenedActions(gym.ActionWrapper):
+#     def __init__(self, env):
+#         super().__init__(env)
+#         self.action_space = gym.spaces.MultiBinary(np.prod(env.action_space.shape))
     
-    def action(self, act):
-        return np.reshape(act, newshape=np.prod(act.shape))
+#     def action(self, act):
+#         return np.reshape(act, newshape=np.prod(act.shape))
 
 
 from stable_baselines3 import PPO
@@ -404,13 +413,13 @@ from stable_baselines3.common.vec_env import DummyVecEnv
 def env_creator():
     env = Type2Thinking(sample, generator, discriminator)
     env.competitor = dummy_func
-    wrapped_env = FlattenedActions(env)
-    return wrapped_env
+    return env
 
 # wrapped_env = FlattenedActions(env)
 
 vec_env = DummyVecEnv([env_creator])
 
+# use a pre-trained model here to only adapt it rather than train from scratch
 model = PPO('MlpPolicy', vec_env, verbose=0, n_steps=256, ent_coef=0.01) # for more complex problems we use different architectures
 
 
@@ -430,3 +439,4 @@ for iteration in range(num_iterations):
 
 final_segmentation = vec_env.get_attr('predicted_segmentation')[0]
 
+plt.imshow(final_segmentation)
