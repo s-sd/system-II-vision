@@ -252,7 +252,7 @@ for _ in range(num_iterations_adaptation):
 
 # predicted_segmentation = generator.predict(x_test_batch[0:1])
 # plt.imshow(predicted_segmentation[0])
-# plt.imshow(predicted_segmentation[0]>0.504) # select a threshold, not required if training every step to convergence, just required for demo
+# plt.imshow(predicted_segmentation[0]>0.61) # select a threshold, not required if training every step to convergence, just required for demo
 
 # =============================================================================
 # Per-sample type 2 thinking using self-play RL environment
@@ -274,16 +274,20 @@ class Type2Thinking(gym.Env):
         
         self.observation_space = gym.spaces.Box(low=0, high=1, shape=(*np.shape(self.sample), 2))
         self.action_space = gym.spaces.Box(low=0, high=1, shape=np.shape(self.sample))
-        
+                
         self.predicted_segmentation = None
-        self.threshold = 0.504 # this might need to be adjusted for teh demo, however, for full training of gan, we can leave it at 0.5
+        self.threshold = 0.508 # this might need to be adjusted for the demo, if using few training steps above, however, for full training of gan, we can leave it at 0.5
         
         self.proportion_flips_allowed = 0.01
+        
+        self.termination_steps = 1024 # approx proportion_flips * prod(action_space) * 100
         
         self.competitor_observations = []
         self.competitor_actions = []
         self.competitor_rewards = []
         self.competitor_dones = []
+        
+        self.step_counter = 0
     
     def _get_observation(self, sample, predicted_segmentation):
         observation = np.concatenate([np.expand_dims(sample, axis=-1), np.expand_dims(predicted_segmentation, axis=-1)], axis=-1)
@@ -351,9 +355,15 @@ class Type2Thinking(gym.Env):
         
         # print(reward)
         
+        self.step_counter += 1
+        
+        if self.step_counter > self.termination_steps:
+            done = True
+        
         return observation, reward, done, {}
         
     def reset(self):
+        self.step_counter = 0
         self.predicted_segmentation = self._predict_generator(self.sample)
         observation = self._get_observation(self.sample, self.predicted_segmentation)
         return observation
@@ -390,7 +400,7 @@ env.competitor = dummy_func
 
 observation = env.reset()
 
-obs_2, rew, don, _ = env.step(env.action_space.sample())
+obs_2, rew, don, _ = env.step(env.action_space.sample()); print(env.step_counter); print(don)
 
 plt.imshow(obs_2[:, :, 1])
 
@@ -420,13 +430,13 @@ def env_creator():
 vec_env = DummyVecEnv([env_creator])
 
 # use a pre-trained model here to only adapt it rather than train from scratch
-model = PPO('MlpPolicy', vec_env, verbose=0, n_steps=256, ent_coef=0.01) # for more complex problems we use different architectures
+model = PPO('MlpPolicy', vec_env, verbose=0, n_steps=env.termination_steps*4, ent_coef=0.01) # for more complex problems we use different architectures
 
 
-competitor_update_frequency = 1024
+competitor_update_frequency = env.termination_steps * 8
 num_iterations = 32 # increase to 1e6 for real run
 
-# should converge to around 0
+# should converge to around 0 as competitor also improves
 for iteration in range(num_iterations):
     print(f'Self-play iteration: {iteration+1} / {num_iterations}')
     model.learn(competitor_update_frequency)
@@ -440,3 +450,10 @@ for iteration in range(num_iterations):
 final_segmentation = vec_env.get_attr('predicted_segmentation')[0]
 
 plt.imshow(final_segmentation)
+
+
+# once we have final segmentation, we adapt the gan again using the original adaptation batch plus the obtained segmentation
+
+
+
+
