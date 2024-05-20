@@ -454,6 +454,10 @@ plt.imshow(final_segmentation)
 
 # once we have final segmentation, we adapt the gan again using the original adaptation batch plus the obtained segmentation
 
+# in real training, we can have 4-8 samples for the RL tranining
+# subsequently, the training for the next 4-8 would be much faster than for the first batch
+# we just samples between 4-8 samples on each environment reset
+# see other scripts for code
 
 
 
