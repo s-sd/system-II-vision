@@ -26,10 +26,8 @@ This repository contains code to implement a dual-process method for machine cog
 ### How-to
 
 #### Dependencies
-For `python=3.8`
-
 ```
-pip install tensorflow==2.13 gym==0.26.2 matplotlib numpy
+python3.8 -m pip install tensorflow==2.13 gym==0.26.2 matplotlib numpy
 ```
 
 #### Code
