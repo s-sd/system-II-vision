@@ -138,8 +138,8 @@ epsilon = 0.02
 def mse(y_1, y_2):
     return (y_1 - y_2)**2
 
-train_digits = [0, 1, 2, 3, 4, 5]
-val_digits = [6, 7]
+train_digits = [0, 1, 2, 3, 4]
+val_digits = [5]
 test_digits = [8, 9]
 
 # for demo, can stop training at around 0.01 validation discrimination; approx 100 iter
