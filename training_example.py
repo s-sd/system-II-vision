@@ -85,7 +85,7 @@ test_dataset = get_digit_dataset(x_test, y_test, labels_test)
 
 
 # =============================================================================
-# GAN training
+# Adversarial training for the System I module
 # =============================================================================
 
 
@@ -219,7 +219,7 @@ for i in range(num_iterations):
 
 
 # =============================================================================
-# GAN adaptation - using 4 samples - digit 8
+# Adapting the System I module using few samples - 4 samples from digit 8
 # =============================================================================
 
 digit = 8
@@ -255,10 +255,9 @@ for _ in range(num_iterations_adaptation):
 # plt.imshow(predicted_segmentation[0]>0.61) # select a threshold, not required if training every step to convergence, just required for demo
 
 # =============================================================================
-# Per-sample type 2 thinking using self-play RL environment
+# System II thinking using self-play RL
 # =============================================================================
-# assume a single unlabelled sample needs to be labelled by type 2
-
+# assume a single unlabelled sample needs to be labelled by system II
 
 import gym
 
@@ -405,7 +404,7 @@ obs_2, rew, don, _ = env.step(env.action_space.sample()); print(env.step_counter
 plt.imshow(obs_2[:, :, 1])
 
 # =============================================================================
-# RL self-play training
+# RL self-play training for the System II module
 # =============================================================================
 
 # class FlattenedActions(gym.ActionWrapper):
