@@ -19,9 +19,25 @@ To-be-added
 This repository contains code to implement a dual-process method for machine cognition, which consists of two modules: 
 
 1) **The System I module**: for fast decisions in familiar scenarios, trained adversarially across multiple tasks
-2) **The System II module**: for slow and effortful reasoning to refine solutions in novel tasks, using reinforcement learning self-play to propose, consider and implement decision strateiges akin to human reasoning.
+2) **The System II module**: for slow and effortful reasoning to refine solutions in novel tasks, using reinforcement learning self-play to propose, consider and implement decision strateiges, akin to human reasoning
 
 <br/>
+
+### How-to
+
+#### Dependencies
+```
+pip install tensorflow==2.13 gym==0.26.2 matplotlib numpy
+```
+
+#### Code
+```
+cd system-II-vision
+python3 training_example.py
+```
+
+<br/>
+
 
 ### Results for computer-vision tasks
 
