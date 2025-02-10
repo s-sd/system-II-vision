@@ -53,4 +53,5 @@ Our approach (summarised below) outeperforms commonly used deep learning methods
 
 It also demonstrates the salient features of System II congition in humans, when evaluated for the challenging task of cancer segmentation on medical images, which can enable non-invasive cancer diagnoses but often requires extensive expertise and is plagued by limited data availability:
 
-![cancer_quant](https://github.com/user-attachments/assets/fcd2eb8d-2df2-43fe-8970-acb6041a4928)
+![Screenshot from 2025-02-10 13-05-30](https://github.com/user-attachments/assets/a909a443-a69e-4cb9-8249-a4fd7e7a4f3e)
+
