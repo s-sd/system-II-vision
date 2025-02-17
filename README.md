@@ -72,9 +72,7 @@ In addition to using the [MNIST digit dataset](https://www.tensorflow.org/datase
 
 ### Results for computer-vision tasks
 
-Please refer to the example training script in `training_example.py` for the task of MNIST digit segmentation from noisy images, implemented using our proposed approach.
-
-Our approach (summarised below) outeperforms commonly used deep learning methods:
+Please refer to the example training script in `training_example.py` for the task of MNIST digit segmentation from noisy images, implemented using our proposed approach. The System I module is trained across digits 0-4 (see [`ln 88`](training_example.py#L88) in `training_example.py`) to predict initial solutions, as outline din the first pane of the figure below. This System I module is then adapted using 4 samples from each of the target digits 6-9 (see [`ln 222`](training_example.py#L222) in `training_example.py`). The System II module is then used to predict segmentations for the the target digits (see [`ln 258`](training_example.py#L258) in `training_example.py`), as outlined in the second pane in the figure below.
 
 ![Screenshot from 2025-02-10 11-22-11](https://github.com/user-attachments/assets/9fb4e29f-7ec3-41a2-a7af-4f02cf3a53b1)
 
