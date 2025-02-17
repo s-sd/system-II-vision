@@ -93,6 +93,7 @@ Our method outperforms other common methods, setting a new state-of-the-art in t
 | CLIP   [Liu 2023]                       | Yes       | >100   | -             | 79.4±8.1      | 62.3±9.8      | 63.1±10.6     | -             |
 | AutoSeg [Myronenko 2023]                      | No        | >100   | -             | -             | -             | -             | **76.4±5.5**  |
 
+<br/>
 
 
 It also demonstrates the salient features of System II congition in humans, when evaluated for the challenging task of cancer segmentation on medical images, which can enable non-invasive cancer diagnoses but often requires extensive expertise and is plagued by limited data availability:
