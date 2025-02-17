@@ -39,6 +39,35 @@ python3 training_example.py
 <br/>
 
 
+### Datasets used in our experiments
+
+In addition to using the [MNIST digit dataset](https://www.tensorflow.org/datasets/catalog/mnist) and the [ImageNet-LUSS dataset](https://github.com/LUSSeg/ImageNet-S) for our experiments, we also use medical imaging datasets as outlined below:
+
+| Dataset Link           | Organ    | Modality | Role |
+| :---------------- | :------: | :----:   | :----: |
+| [Medical Segmentation Decathalon](http://medicaldecathlon.com/)  |   Spleen   | CT | Training |
+| [Medical Segmentation Decathalon](http://medicaldecathlon.com/)  |   Liver Vessels   | CT | Training |
+| [Multi-Atlas Labeling Beyond the Cranial Vault](https://www.synapse.org/Synapse:syn3193805/wiki/89480)  |   Gallbladder   | CT | Training |
+| [Multi-Atlas Labeling Beyond the Cranial Vault](https://www.synapse.org/Synapse:syn3193805/wiki/89480)  |   Adrenal Gland   | CT | Training |
+| [Multi-Atlas Labeling Beyond the Cranial Vault](https://www.synapse.org/Synapse:syn3193805/wiki/89480)  |   Major Vessels   | CT | Training |
+| [Multi-Atlas Labeling Beyond the Cranial Vault](https://www.synapse.org/Synapse:syn3193805/wiki/89480)  |   Stomach   | CT | Training |
+| [CT-ORG](https://www.cancerimagingarchive.net/collection/ct-org/)  |   Kidneys   | CT | Training |
+| [CT-ORG](https://www.cancerimagingarchive.net/collection/ct-org/)  |   Bladder   | CT | Training |
+| [CHAOS](https://chaos.grand-challenge.org/)  |   Liver   | MR | Training |
+| [CHAOS](https://chaos.grand-challenge.org/)  |   Kidneys   | MR | Training |
+| [CHAOS](https://chaos.grand-challenge.org/)  |   Spleen   | MR | Training |
+| [AMOS](https://amos22.grand-challenge.org/)  |   Bladder   | MR | Training |
+| [AMOS](https://amos22.grand-challenge.org/)  |   Gallbladder   | MR | Training |
+| [AMOS](https://amos22.grand-challenge.org/)  |   Prostate   | MR | Training |
+| [AMOS](https://amos22.grand-challenge.org/)  |   Major Vessels   | MR | Training |
+| [Medical Segmentation Decathalon](http://medicaldecathlon.com/)  |   Prostate   | MR | Training |
+| [PROMIS](https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(16)32401-1/fulltext)  |   Prostate Tumour   | CT | Evaluation |
+| [Medical Segmentation Decathalon](http://medicaldecathlon.com/)  |   Liver Tumour   | CT | Evaluation |
+| [Medical Segmentation Decathalon](http://medicaldecathlon.com/)  |   Pancreas Tumour   | CT | Evaluation |
+| [Medical Segmentation Decathalon](http://medicaldecathlon.com/)  |   Colon Tumour   | CT | Evaluation |
+| [KITS](https://kits-challenge.org/kits23/)  |   Kidney Tumour   | CT | Evaluation |
+
+
 ### Results for computer-vision tasks
 
 Please refer to the example training script in `training_example.py` for the task of MNIST digit segmentation from noisy images, implemented using our proposed approach.
