@@ -61,7 +61,7 @@ In addition to using the [MNIST digit dataset](https://www.tensorflow.org/datase
 | [AMOS](https://amos22.grand-challenge.org/)  |   Prostate   | MR | Training |
 | [AMOS](https://amos22.grand-challenge.org/)  |   Major Vessels   | MR | Training |
 | [Medical Segmentation Decathalon](http://medicaldecathlon.com/)  |   Prostate   | MR | Training |
-| [PROMIS](https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(16)32401-1/fulltext)  |   Prostate Tumour   | CT | Evaluation |
+| [PROMIS](https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(16)32401-1/fulltext)  |   Prostate Tumour   | MR | Evaluation |
 | [Medical Segmentation Decathalon](http://medicaldecathlon.com/)  |   Liver Tumour   | CT | Evaluation |
 | [Medical Segmentation Decathalon](http://medicaldecathlon.com/)  |   Pancreas Tumour   | CT | Evaluation |
 | [Medical Segmentation Decathalon](http://medicaldecathlon.com/)  |   Colon Tumour   | CT | Evaluation |
