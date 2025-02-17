@@ -82,6 +82,19 @@ Please refer to the example training script in `training_example.py` for the tas
 
 ### Cancer segmentation on medical image experiments
 
+Our method outperforms other common methods, setting a new state-of-the-art in the tested cancer localisation tasks:
+
+| Method                        | Pre-Train | Labels | Prostate       | Liver           | Pancreas       | Colon          | Kidney         |
+|--------------------------------|-----------|--------|---------------|---------------|---------------|---------------|---------------|
+| System II                     | Yes       | 8      | 62.4±5.1      | **85.3±8.6**  | 60.9±9.7      | **65.1±10.7** | **75.6±6.3**  |
+| System II                     | Yes       | 12     | **63.0±4.8**  | 83.9±10.2     | 63.6±8.9      | 63.3±10.2     | 74.9±5.9      |
+| System II                     | Yes       | 16     | 62.8±5.8      | 84.3±9.1      | **66.2±9.4**  | 64.7±11.0     | 74.1±6.2      |
+| nnUNet [Isensee 2021; Yan 2024]                       | No        | >100   | 42.3±5.6      | -             | -             | -             | -             |
+| CLIP   [Liu 2023]                       | Yes       | >100   | -             | 79.4±8.1      | 62.3±9.8      | 63.1±10.6     | -             |
+| AutoSeg [Myronenko 2023]                      | No        | >100   | -             | -             | -             | -             | **76.4±5.5**  |
+
+
+
 It also demonstrates the salient features of System II congition in humans, when evaluated for the challenging task of cancer segmentation on medical images, which can enable non-invasive cancer diagnoses but often requires extensive expertise and is plagued by limited data availability:
 
 ![Screenshot from 2025-02-10 13-05-30](https://github.com/user-attachments/assets/a909a443-a69e-4cb9-8249-a4fd7e7a4f3e)
