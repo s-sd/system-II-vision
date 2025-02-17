@@ -70,7 +70,7 @@ In addition to using the [MNIST digit dataset](https://www.tensorflow.org/datase
 
 <br/>
 
-### Results for computer-vision tasks
+### Computer-vision experiments
 
 Please refer to the example training script in `training_example.py` for the task of MNIST digit segmentation from noisy images, implemented using our proposed approach. The System I module is trained across digits 0-4 (see [`ln 88`](training_example.py#L88) in `training_example.py`) to predict initial solutions, as outline din the first pane of the figure below. This System I module is then adapted using 4 samples from each of the target digits 6-9 (see [`ln 222`](training_example.py#L222) in `training_example.py`). The System II module is then used to predict segmentations for the the target digits (see [`ln 258`](training_example.py#L258) in `training_example.py`), as outlined in the second pane in the figure below.
 
@@ -78,7 +78,7 @@ Please refer to the example training script in `training_example.py` for the tas
 
 <br/>
 
-### Results for cancer segmentation on medical images
+### Cancer segmentation on medical image experiments
 
 It also demonstrates the salient features of System II congition in humans, when evaluated for the challenging task of cancer segmentation on medical images, which can enable non-invasive cancer diagnoses but often requires extensive expertise and is plagued by limited data availability:
 
