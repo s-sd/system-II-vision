@@ -21,6 +21,8 @@ This repository contains code to implement a dual-process method for machine cog
 1) **The System I module**: for fast decisions in familiar scenarios, trained adversarially across multiple tasks
 2) **The System II module**: for slow and effortful reasoning to refine solutions in novel tasks, using reinforcement learning self-play to propose, consider and implement decision strateiges, akin to human reasoning
 
+See a description of the implementation [here](#computer-vision-experiments)
+
 <br/>
 
 ### How-to
