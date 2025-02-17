@@ -68,6 +68,8 @@ In addition to using the [MNIST digit dataset](https://www.tensorflow.org/datase
 | [KITS](https://kits-challenge.org/kits23/)  |   Kidney Tumour   | CT | Evaluation |
 
 
+<br/>
+
 ### Results for computer-vision tasks
 
 Please refer to the example training script in `training_example.py` for the task of MNIST digit segmentation from noisy images, implemented using our proposed approach.
