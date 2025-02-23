@@ -6,6 +6,9 @@ from unet import get_unet, get_convnet
 from alexnet import get_alexnet
 from tqdm import tqdm
 
+import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+
 # =============================================================================
 # Data preperation
 # =============================================================================
