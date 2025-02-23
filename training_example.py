@@ -296,13 +296,13 @@ class Type2Thinking(gym.Env):
         return observation
     
     def _predict_generator(self, sample):
-        predicted_map = np.squeeze(self.generator.predict(np.expand_dims(np.expand_dims(sample, axis=-1), axis=0)))
+        predicted_map = np.squeeze(self.generator.predict(np.expand_dims(np.expand_dims(sample, axis=-1), axis=0), verbose=0))
         predicted_segmentation = predicted_map > self.threshold
         return predicted_segmentation
     
     def _predict_discriminator(self, sample, predicted_segmentation):
         return np.squeeze(self.discriminator.predict([np.expand_dims(np.expand_dims(sample, axis=-1), axis=0),
-                                                      np.expand_dims(np.expand_dims(predicted_segmentation, axis=-1), axis=0)]))
+                                                      np.expand_dims(np.expand_dims(predicted_segmentation, axis=-1), axis=0)], verbose=0))
     
     def _logical_operation(self, action, segmentation):
         in1 = np.array(action, dtype=bool)
