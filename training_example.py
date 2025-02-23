@@ -135,7 +135,7 @@ batch_size = 32
 epochs = 5
 num_steps = 4
 val_steps = 8
-num_iterations = 96
+num_iterations = 32 # increase this (see comment before for loop below)
 epsilon = 0.02
 
 def mse(y_1, y_2):
