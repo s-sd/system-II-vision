@@ -29,7 +29,7 @@ See a description of the implementation [here](#computer-vision-experiments)
 
 #### Dependencies
 ```
-python3.9 -m pip install tensorflow==2.13 matplotlib numpy gymnasium stable-baselines3 tqdm
+python3.10 -m pip install tensorflow==2.13 shimmy>=2.0 gym==0.26 matplotlib numpy gym tqdm stable-baselines3
 ```
 
 #### Code
